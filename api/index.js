@@ -25,7 +25,7 @@ app.get("/", (req, res) => {
 })
 
 app.listen(4000, () => console.log("Funciona el servidor correctamente"));
-app.post("/user/registerUser",registerUser);
+app.post("/user/registerUser", registerUser);
 app.post("/user/login", login);
 app.post("/user/:_id", updateUser);
 

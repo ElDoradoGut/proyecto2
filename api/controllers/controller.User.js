@@ -81,7 +81,7 @@ export const updateUser = async (req, res) => {
         //Update password
         if (!bcrypt.compare(req.body.password, user.password)) {
             const newPass = await bcrypt.genSalt(10);
-            user.password = await bcrypt.hash(req.body.password.newPass);
+            user.password = await bcrypt.hash(req.body.password, newPass);
         }
 
         //Save user info

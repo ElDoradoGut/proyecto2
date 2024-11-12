@@ -7,13 +7,7 @@ const teamSchema = new Schema([
             require: true
         }
     }, {
-        memberID: [
-            {
-                type: Schema.Types.ObjectId,
-                ref:'users',
-                required: true
-            }
-        ]
+        memberID: []
     }, {
         leaderID: {
             type: Schema.Types.ObjectId,
@@ -36,4 +30,4 @@ const teamSchema = new Schema([
     }
 ]);
 
-export const modelTeam = model('score', teamSchema);
+export const modelTeam = model('team', teamSchema);

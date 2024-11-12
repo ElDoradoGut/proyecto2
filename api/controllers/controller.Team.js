@@ -18,9 +18,9 @@ export const createTeam = async (req, res) => {
         }
 
         //Validate memberID is integer
-        if (!Array.isArray(req.body.memberID) || !req.body.memberID.every(id => typeof id === "number")) {
-            return res.status(400).json({ message: "MemberID must be integer." });
-        }
+        /* if (!Array.isArray(req.body.memberID) || !req.body.memberID.every(id => typeof id === "ObjectId")) {
+            return res.status(400).json({ message: "MemberID must be ObjectID." });
+        } */
 
         //Validate team size < 8
         if (req.body.memberID.length > 8) {
@@ -31,7 +31,8 @@ export const createTeam = async (req, res) => {
         const team = {
             name: req.body.name,
             memberID: req.body.memberID,
-            leaderID: req.body.leaderID
+            leaderID: req.body.leaderID,
+            round: 1
         };
 
         await modelTeam.create(team);

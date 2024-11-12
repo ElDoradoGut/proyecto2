@@ -7,15 +7,17 @@ const teamSchema = new Schema([
             require: true
         }
     }, {
-        members: [
+        memberID: [
             {
                 type: Schema.Types.ObjectId,
+                ref:'users',
                 required: true
             }
         ]
     }, {
-        leader: {
+        leaderID: {
             type: Schema.Types.ObjectId,
+            ref: 'users',
             required: true
         }
     }, {
@@ -27,6 +29,7 @@ const teamSchema = new Schema([
         scores: [
             {
                 type: Schema.Types.ObjectId,
+                ref: 'scores',
                 required: true
             }
         ]

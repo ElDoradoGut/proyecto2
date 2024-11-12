@@ -2,6 +2,11 @@ import { Schema, model } from "mongoose";
 
 const eventSchema = new Schema([
     {
+        name: {
+            type: String,
+            required: true
+        }
+    }, {
         metrics: [
             {
                 description: {
@@ -14,6 +19,11 @@ const eventSchema = new Schema([
                 }
             }
         ]
+    }, {
+        maxrounds: {
+            type: Number,
+            required: true
+        }
     }, {
         round: {
             type: Number,
@@ -30,6 +40,7 @@ const eventSchema = new Schema([
         teams: [
             {
                 type: Schema.Types.ObjectId,
+                ref: 'teams',
                 require: true
             }
         ]
@@ -37,10 +48,11 @@ const eventSchema = new Schema([
         judges: [
             {
                 type: Schema.Types.ObjectId,
+                ref: 'users',
                 require: true
             }
         ]
     }
 ]);
 
-export const modelEvent = model('score', eventSchema);
+export const modelEvent = model('event', eventSchema);

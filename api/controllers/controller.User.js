@@ -29,6 +29,17 @@ export const registerUser = async (req, res) => {
     }
 }
 
+//Get users
+export const getUsers = async (req, res) => {
+    try {
+        const users = await modelUser.find();
+        return res.status(200).json(users)
+    } catch (e) {
+        console.log(e);
+        return res.status(500).json({ error: "Error when fetching user", details: e.message });
+    }
+}
+
 //Login with user
 export const login = async (req, res) => {
     try {
@@ -74,18 +85,13 @@ export const updateUser = async (req, res) => {
 
         //Update user information
         user.name = req.body.name ? req.body.name : user.name;
+        user.password = req.body.password ? await bcrypt.hash(req.body.password, 10) : user.password;
         user.mail = req.body.mail ? req.body.mail : user.mail;
         user.curp = req.body.curp ? req.body.curp : user.curp;
         user.role = req.body.role ? req.body.role : user.role;
 
-        //Update password
-        if (!bcrypt.compare(req.body.password, user.password)) {
-            const newPass = await bcrypt.genSalt(10);
-            user.password = await bcrypt.hash(req.body.password, newPass);
-        }
-
         //Save user info
-        await user.save();
+        await user.findByIdAndUpdate(user._id, user);
 
         return res.status(200).json({ message: "User successfully updated." });
 

@@ -4,9 +4,9 @@ import express from "express";
 import cors from "cors";
 import helmet from "helmet";
 
-import { registerUser, login, updateUser } from "./controllers/controller.User.js";
-import { createEvent } from "./controllers/controller.Event.js";
-import { createTeam, registerEvent } from "./controllers/controller.Team.js";
+import { registerUser, login, updateUser, getUsers } from "./controllers/controller.User.js";
+import { createEvent, getEvents } from "./controllers/controller.Event.js";
+import { createTeam, getTeams, registerEvent } from "./controllers/controller.Team.js";
 
 dotenv.config();
 
@@ -28,8 +28,11 @@ app.listen(4000, () => console.log("Funciona el servidor correctamente"));
 app.post("/user/registerUser", registerUser);
 app.post("/user/login", login);
 app.post("/user/:_id", updateUser);
+app.get("/user/list", getUsers);
 
 app.post("/event/createEvent", createEvent);
+app.get("/event/list", getEvents)
 
 app.post("/team/createTeam", createTeam);
 app.post("/team/registerEvent", registerEvent);
+app.get("/team/list", getTeams)

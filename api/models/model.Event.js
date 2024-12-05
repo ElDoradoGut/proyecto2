@@ -36,22 +36,6 @@ const eventSchema = new Schema([
             lowercase: true,
             require: true
         }
-    }, {
-        teams: [
-            {
-                type: Schema.Types.ObjectId,
-                ref: 'teams',
-                require: true
-            }
-        ]
-    }, {
-        judges: [
-            {
-                type: Schema.Types.ObjectId,
-                ref: 'users',
-                require: true
-            }
-        ]
     }
 ]);
 

@@ -4,7 +4,7 @@ import { modelEvent } from "../models/model.Event.js";
 export const createEvent = async (req, res) => {
     try {
         //Make sure metrics are stored in an array
-        const metrics = req.body.metrics || [];
+        const {name, metrics, maxrounds, round, state} = req.body;
 
         if (!Array.isArray(metrics) || metrics.length == 0) {
             return res.status(400).json({ message: "Metrics must be sent as an array." });
@@ -24,13 +24,11 @@ export const createEvent = async (req, res) => {
 
         //Create event
         const event = {
-            name: req.body.name,
+            name: name,
             metrics: metrics,
-            maxrounds: req.body.maxrounds,
-            round: req.body.round,
-            state: req.body.state,
-            teams: req.body.teams,
-            judges: req.body.judges
+            maxrounds: maxrounds,
+            round: round,
+            state: state
         };
 
         await modelEvent.create(event);
@@ -39,5 +37,16 @@ export const createEvent = async (req, res) => {
         //Error handling
         console.error(e);
         return res.status(500).json({ error: "Error when creating event", details: e.message });
+    }
+}
+
+//Get events
+export const getEvents = async (req, res) => {
+    try {
+        const users = await modelEvent.find();
+        return res.status(200).json(users)
+    } catch (e) {
+        console.log(e);
+        return res.status(500).json({ error: "Error when fetching event", details: e.message });
     }
 }

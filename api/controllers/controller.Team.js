@@ -44,6 +44,17 @@ export const createTeam = async (req, res) => {
     }
 }
 
+//Get teams
+export const getTeams = async (req, res) => {
+    try {
+        const team = await modelTeam.find();
+        return res.status(200).json(team)
+    } catch (e) {
+        console.log(e);
+        return res.status(500).json({ error: "Error when fetching team", details: e.message });
+    }
+}
+
 
 //Method for registering a team to an event
 export const registerEvent = async (req, res) => {
